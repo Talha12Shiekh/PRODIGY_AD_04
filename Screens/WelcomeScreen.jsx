@@ -1,18 +1,27 @@
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image, TouchableOpacity, Text} from 'react-native';
 import React from 'react';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {
-  BG_COLOR,
-} from '../Constants';
+import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {BG_COLOR, center,BLACK_COLOR} from '../Constants';
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require('../assets/Welcome-img.jpg')}
+      <View style={styles.imgContainer}>
+        <Image
+        source={require("../assets/Welcome-img.jpg")}
         resizeMode="contain"
-      />
+        style={styles.image}
+        />
+      </View>
+      <View style={styles.btnContainer}>
+        <TouchableOpacity
+        onPress={() => navigation.navigate('QRCodeScanner')}
+        >
+            <View style={styles.btn}>
+              <Text style={styles.btnText}>Scan QR Code</Text>
+            </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -20,17 +29,34 @@ const WelcomeScreen = () => {
 export default WelcomeScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: BG_COLOR,
-    gap: wp(10),
+  imgContainer:{
+    width:wp(80),
+    height:hp(40),
   },
-  image: {
-    width: wp(80),
+  container:{
+    flex:1,
+    backgroundColor:BG_COLOR,
+    ...center,
   },
-  btnTextStyle: {
-    fontSize: wp(6),
+  image:{
+    width:"100%",
+    height:"100%"
   },
+  btnText:{
+    color:"white",
+    fontSize:wp(5),
+    fontFamily:"Poppins-Medium",
+    marginTop:wp(2)
+  },
+  btn:{
+    width:"100%",
+    backgroundColor:BLACK_COLOR,
+    padding:wp(4),
+    ...center,
+    borderRadius:10
+  },
+  btnContainer:{
+    width:wp(80),
+    marginVertical:wp(10),
+  }
 });
